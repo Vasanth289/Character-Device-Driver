@@ -2,42 +2,38 @@
 
 ## Commmands used
 
-$ make all
+	$ make all
 
-$ sudo insmod simple_char_device.ko
+	$ sudo insmod simple_char_device.ko
 
-$ lsmod | grep simple
+	$ lsmod | grep simple
 
-$ cat /proc/devices | grep simple
+	$ cat /proc/devices | grep simple
 
-$ sudo mknod -m 666 /dev/simple_char c 240 0
+	$ sudo mknod -m 666 /dev/simple_char c 240 0
 
-$ ls -l /dev/simple_char
+	$ ls -l /dev/simple_char
 
-$ ./user_prog
+	$ ./user_prog
 
-$ cat /dev/simple_char
+	$ cat /dev/simple_char
 
-$ echo "Hello" > /dev/simple_char
+	$ echo "Hello" > /dev/simple_char
 
-$ sudo rmmod simple_char_device
+	$ sudo rmmod simple_char_device
 
-$ sudo rm /dev/simple_char
+	$ sudo rm /dev/simple_char
 
-$ make clean
+	$ make clean
 
 ## Makefile
 
-obj-m := simple_char_device.o
+	obj-m := simple_char_device.o
 
-all:
+	all:
+		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+		$(CC) test.c -o test
 
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-	
-	$(CC) test.c -o test
-
-clean:
-	
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
-	
-	rm test
+	clean:
+		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+		rm test
