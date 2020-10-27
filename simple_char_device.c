@@ -9,8 +9,6 @@ MODULE_DESCRIPTION("A simple character driver");
 
 static DEFINE_MUTEX(char_mutex);
 
-volatile static int is_open = 0;
-
 static int devnum;
 static char message[1024];
 static int num_bytes = 0;
@@ -66,12 +64,6 @@ int device_open (struct inode *pinode, struct file *pfile)
 	}
 	printk(KERN_INFO "Inside the  %s function\n", __FUNCTION__);
 	
-	if(is_open == 1)
-	{
-		printk(KERN_INFO "Error - Device already open\n");
-		return -EBUSY;
-	}
-	is_open = 1;
 	try_module_get(THIS_MODULE);
 	numberOpens++;	
 	printk(KERN_INFO "Device has been opened %d time(s)\n", numberOpens);
@@ -83,12 +75,6 @@ int device_release (struct inode *pinode, struct file *pfile)
 	mutex_unlock(&char_mutex);
 	printk(KERN_INFO "Inside the  %s function\n", __FUNCTION__);
 	
-	if(is_open == 0)
-	{
-		printk(KERN_INFO "Error - Device wasn't open\n");
-		return -EBUSY;
-	}
-	is_open = 0;
 	module_put(THIS_MODULE);
 	printk(KERN_INFO "Device successfully closed.\n");
 	return 0;
