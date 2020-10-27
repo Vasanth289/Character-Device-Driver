@@ -32,8 +32,8 @@
 
 	all:
 		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-		$(CC) test.c -o test
+		$(CC) user_prog.c -o user_prog
 
 	clean:
 		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
-		rm test
+		rm user_prog
