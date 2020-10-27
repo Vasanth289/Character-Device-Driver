@@ -2,7 +2,7 @@
 
 ## Commmands used
 
-$ make all
+$ make all\n
 $ sudo insmod simple_char_device.ko
 $ lsmod | grep simple
 $ cat /proc/devices | grep simple
@@ -15,7 +15,7 @@ $ sudo rmmod simple_char_device
 $ sudo rm /dev/simple_char
 $ make clean
 
-##Makefile
+## Makefile
 
 obj-m := simple_char_device.o
 
