@@ -118,3 +118,4 @@ void simple_char_device_exit(void)
 
 module_init(simple_char_device_init);
 module_exit(simple_char_device_exit);
+
